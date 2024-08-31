@@ -4,6 +4,7 @@ import uuid
 from datetime import date, datetime
 from unittest.mock import patch
 
+from dotenv import load_dotenv
 from sqlmodel import SQLModel
 
 from fastapi_demo.db.db_session import _get_engine, get_session
@@ -18,11 +19,13 @@ from fastapi_demo.models.employee import (
 
 class EmployeeModelTest(unittest.TestCase):
     def setUp(self):
+        load_dotenv("test.env")
         self.engine = _get_engine()
         SQLModel.metadata.create_all(self.engine)
         self.session = get_session()
 
     def tearDown(self):
+        load_dotenv()
         os.remove("test_db")
         self.session.close()
         self.engine.dispose()

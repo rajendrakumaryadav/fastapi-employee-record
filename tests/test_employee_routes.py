@@ -2,6 +2,7 @@ import os
 import unittest
 from unittest.mock import patch
 
+from dotenv import load_dotenv
 from fastapi.testclient import TestClient
 from sqlmodel import SQLModel
 
@@ -13,12 +14,14 @@ from fastapi_demo.utils.utility import MissingEmployeeRecord
 
 class EmployeeRouteTest(unittest.TestCase):
     def setUp(self):
+        load_dotenv("test.env")
         self.engine = _get_engine()
         SQLModel.metadata.create_all(self.engine)
         self.session = get_session()
         self.client = TestClient(emp)
 
     def tearDown(self):
+        load_dotenv()
         os.remove("test_db")
         self.session.close()
         self.engine.dispose()
@@ -31,7 +34,6 @@ class EmployeeRouteTest(unittest.TestCase):
             "designation": "Software Engineer",
         }
         response = self.client.post("/employee", json=employee_data)
-        print(response)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["name"], employee_data["name"])
         self.assertEqual(
