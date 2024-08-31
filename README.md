@@ -48,3 +48,15 @@ tests/test_employee_routes.py::EmployeeRouteTest::test_update_employee_not_found
 ```bash
 $ poetry run run_app
 ```
+
+6. Open the browser and navigate to `https://localhost:5000/docs`
+> It will open swagger docs page. Where you can interact the with API server. Here is Terminal Output.
+```bash
+$ poetry run run_app
+INFO:     Will watch for changes in these directories: ['/home/username/Documents/fastapi-demo']
+INFO:     Uvicorn running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+INFO:     Started reloader process [151986] using StatReload
+INFO:     Started server process [151994]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+```

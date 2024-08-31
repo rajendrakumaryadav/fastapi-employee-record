@@ -23,4 +23,5 @@ async def get_index() -> dict[str, str]:
 
 def run_platform() -> None:
     is_dev = True if os.environ.get("DEV", False) else False
-    uvicorn.run(app="fastapi_demo.app:app", port=5000, reload=is_dev)
+    port = int(os.environ.get("PORT", 5000))
+    uvicorn.run(app="fastapi_demo.app:app", port=port, reload=is_dev)
