@@ -16,7 +16,7 @@ jobs:
         python-version: [3.11, 3.12]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -31,7 +31,8 @@ jobs:
 
       - name: Verify Poetry installation
         run: poetry --version
-
+      - name: Generate the poetry.lock
+        run: poetry lock --no-update
       - name: Install dependencies
         run: poetry install
 
