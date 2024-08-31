@@ -64,3 +64,5 @@ INFO:     Application startup complete.
 ---
 7, Frontend is added to the service, once service is running we can open any browser of choice open the page.
 8. Default, It would be available at `http://localhost:5000/`
+Default page:
+![Screenshot from 2024-09-01 02-01-08](https://github.com/user-attachments/assets/833c4b9b-981f-4bb2-a0d0-16b71e97f373)
