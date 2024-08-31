@@ -1,0 +1,126 @@
+{% extends 'base.html' %} {% block title %} Home - Employee Service {% endblock
+%} {% block content %}
+<div class="container mx-auto my-6">
+    <!-- Employee Form -->
+    <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+        <h2 class="text-xl font-semibold mb-4">Add New Employee</h2>
+        <form class="space-y-4">
+            <div class="flex flex-col">
+                <label for="name" class="mb-2 font-medium">Name</label>
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    class="border border-gray-300 p-2 rounded"
+                    required
+                    minlength="3"
+                    maxlength="200"
+                />
+            </div>
+            <div class="flex flex-col">
+                <label for="designation" class="mb-2 font-medium"
+                    >Designation</label
+                >
+                <input
+                    type="text"
+                    id="designation"
+                    name="designation"
+                    class="border border-gray-300 p-2 rounded"
+                    required
+                    minlength="3"
+                    maxlength="200"
+                />
+            </div>
+            <div class="flex flex-col">
+                <label for="joining_date" class="mb-2 font-medium"
+                    >Joining Date</label
+                >
+                <input
+                    type="date"
+                    id="joining_date"
+                    name="joining_date"
+                    class="border border-gray-300 p-2 rounded"
+                />
+            </div>
+            <button
+                type="submit"
+                class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            >
+                Add Employee
+            </button>
+        </form>
+    </div>
+
+    <!-- Employee Table -->
+    <div class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-xl font-semibold mb-4">Employee List</h2>
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white border table-auto">
+                <thead>
+                    <tr class="w-full bg-blue-600 text-white">
+                        <th class="py-2 px-4 text-left" data-column="UID">
+                            UID
+                        </th>
+                        <th class="py-2 px-4 text-left" data-column="Name">
+                            Name
+                        </th>
+                        <th
+                            class="py-2 px-4 text-left"
+                            data-column="Designation"
+                        >
+                            Designation
+                        </th>
+                        <th
+                            class="py-2 px-4 text-left"
+                            data-column="Joining Date"
+                        >
+                            Joining Date
+                        </th>
+                        <th
+                            class="py-2 px-4 text-left"
+                            data-column="Created At"
+                        >
+                            Created At
+                        </th>
+                        <th class="py-2 px-4 text-left">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="employeeTableBody">
+                    {% if employees %} {% for employee in employees %}
+                    <tr
+                        class="border-t hover:bg-gray-100"
+                        id="employee-{{ employee.id }}"
+                    >
+                        <td class="py-2 px-4 font-medium">{{ employee.id }}</td>
+                        <td class="py-2 px-4">{{ employee.name }}</td>
+                        <td class="py-2 px-4">{{ employee.designation }}</td>
+                        <td class="py-2 px-4">
+                            {{ employee.joining_date.strftime('%Y-%m-%d') }}
+                        </td>
+                        <td class="py-2 px-4">
+                            {{ employee.created_at.strftime('%Y-%m-%d %H:%M:%S')
+                            }}
+                        </td>
+                        <td class="py-2 px-4">
+                            <button
+                                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                                onclick="deleteEmployee('{{ employee.id }}')"
+                            >
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %} {% else %}
+                    <tr class="border-t">
+                        <td colspan="6" class="text-center py-4">
+                            No employees found.
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
