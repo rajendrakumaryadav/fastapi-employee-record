@@ -1,0 +1,28 @@
+import os
+
+from dotenv import load_dotenv
+from sqlmodel import Session, create_engine
+
+# print(os.environ)
+
+
+def _get_engine():
+    """
+    Retrieves the SQLAlchemy engine, creating it if it doesn't exist.
+    Raises ValueError if the connection string is invalid.
+    """
+    if os.environ.get("TEST") is not None:
+        load_dotenv()  # Load environment variables from .env file
+    load_dotenv("test.env")
+
+    connection_string = os.environ.get("CONNECTION_STRING", None)
+    if not connection_string:
+        raise ValueError("Invalid connection string, cannot provide session")
+    engine = create_engine(connection_string)
+    return engine
+
+
+# @contextmanager
+def get_session() -> Session:
+    engine = _get_engine()
+    return Session(engine)
