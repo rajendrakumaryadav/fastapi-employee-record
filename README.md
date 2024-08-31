@@ -60,3 +60,7 @@ INFO:     Started server process [151994]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 ```
+## Frontend
+---
+7, Frontend is added to the service, once service is running we can open any browser of choice open the page.
+8. Default, It would be available at `http://localhost:5000/`
