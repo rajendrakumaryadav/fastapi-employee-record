@@ -1,10 +1,9 @@
 {% extends 'base.html' %} {% block title %} Home - Employee Service {% endblock
 %} {% block content %}
 <div class="container mx-auto my-6">
-    <!-- Employee Form -->
     <div class="bg-white p-6 rounded-lg shadow-md mb-6">
         <h2 class="text-xl font-semibold mb-4">Add New Employee</h2>
-        <form class="space-y-4">
+        <form class="space-y-4" id="employeeForm">
             <div class="flex flex-col">
                 <label for="name" class="mb-2 font-medium">Name</label>
                 <input
@@ -21,15 +20,19 @@
                 <label for="designation" class="mb-2 font-medium"
                     >Designation</label
                 >
-                <input
-                    type="text"
+                <select
                     id="designation"
-                    name="designation"
+                    name="designation_id"
                     class="border border-gray-300 p-2 rounded"
                     required
-                    minlength="3"
-                    maxlength="200"
-                />
+                >
+                    <option value="">Select Designation</option>
+                    {% for designation in designations %}
+                    <option value="{{ designation.id }}">
+                        {{ designation.name }}
+                    </option>
+                    {% endfor %}
+                </select>
             </div>
             <div class="flex flex-col">
                 <label for="joining_date" class="mb-2 font-medium"
@@ -93,7 +96,9 @@
                     >
                         <td class="py-2 px-4 font-medium">{{ employee.id }}</td>
                         <td class="py-2 px-4">{{ employee.name }}</td>
-                        <td class="py-2 px-4">{{ employee.designation }}</td>
+                        <td class="py-2 px-4">
+                            {{ employee.designation.name }}
+                        </td>
                         <td class="py-2 px-4">
                             {{ employee.joining_date.strftime('%Y-%m-%d') }}
                         </td>
@@ -122,5 +127,4 @@
         </div>
     </div>
 </div>
-
 {% endblock %}
