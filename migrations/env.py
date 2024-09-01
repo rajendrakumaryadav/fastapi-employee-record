@@ -6,6 +6,7 @@ from alembic import context
 from dotenv import load_dotenv
 from sqlalchemy import engine_from_config, pool
 
+from fastapi_demo.models.designation import *  # noqa
 from fastapi_demo.models.employee import *  # noqa
 
 load_dotenv()

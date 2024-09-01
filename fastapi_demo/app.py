@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
+from .routes.designation import designation_router
 from .routes.employee import emp
 from .routes.frontend import frontend_routes
 
@@ -26,6 +27,7 @@ app.mount("/images", StaticFiles(directory="static/images"), name="images")
 # Adding routes to main Application
 app.include_router(router=emp)
 app.include_router(router=frontend_routes)
+app.include_router(router=designation_router, tags=["Designation"])
 
 
 # Health check endpoint

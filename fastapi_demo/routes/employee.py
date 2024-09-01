@@ -37,8 +37,8 @@ emp = APIRouter(
 async def create_employee(
     *, session: Session = Depends(get_session), employee: EmployeeCreate
 ):
-    db_employee = Employee.model_validate(employee)
-    employee_res = create_employee_record(session=session, employee=db_employee)
+    # db_employee = Employee.model_validate(employee)
+    employee_res = create_employee_record(session=session, employee=employee)
     if not employee_res:
         raise HTTPException(
             status_code=500,
@@ -73,15 +73,13 @@ async def delete(
     *, session: Session = Depends(get_session), id: UUID, response: Response
 ):
     deleted_status = delete_employee(session=session, id=id)
-    if deleted_status:
-        response.status_code = 204
-        return None
-    else:
+    if deleted_status is False:
         response.status_code = 404
         raise MissingEmployeeRecord(
             status_code=404, detail="Missing employee record."
         )
-        # return None
+    response.status_code = 204
+    return response
 
 
 @emp.patch(
